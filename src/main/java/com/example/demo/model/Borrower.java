@@ -13,16 +13,16 @@ public class Borrower {
 
     private String email;
 
-    public Long getId() {
-        return id;
-    }
-
     public Borrower() {
     }
 
     public Borrower(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {

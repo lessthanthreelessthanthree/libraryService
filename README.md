@@ -115,3 +115,30 @@
 > ```
 
 </details>
+
+#### Return a book with a particular book id.
+
+<details>
+ <summary><code>POST</code> <code><b>/api/borrowers/register</b></code> <code>(allows users to return a book to the system)</code></summary>
+
+##### Parameters
+
+> | borrowerId      |  bookId     |
+> |-----------|-----------|
+> | required      |  required |
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`        | `{"id":2,"borrower":{"id":1,"name":"John Doe","email":"john.doe@example.com"},"book":{"id":2,"isbnNumber":"978-0-7432-7356-5","title":"1984","author":"George Orwell"},"borrowedAt":"2024-05-30T05:25:50.501456","returned":true}`                                |
+> | `404`         | `application/json`         | ``                                                                  |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X POST http://localhost:8080/api/borrowers/1/return/2
+> ```
+
+</details>

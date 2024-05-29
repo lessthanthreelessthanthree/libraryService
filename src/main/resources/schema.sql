@@ -10,3 +10,13 @@ CREATE TABLE book (
     title VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE borrowed_book (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    borrower_id BIGINT NOT NULL,
+    book_id BIGINT NOT NULL,
+    borrowed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    returned BOOLEAN DEFAULT FALSE,
+    CONSTRAINT fk_borrower FOREIGN KEY (borrower_id) REFERENCES borrower(id),
+    CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES book(id)
+);

@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Book;
+import com.example.demo.dto.BookDto;
 import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
+    public List<BookDto> getAllBooks() {
         return bookService.getAllBooks();
     }
 

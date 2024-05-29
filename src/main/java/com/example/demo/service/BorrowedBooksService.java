@@ -20,4 +20,8 @@ public class BorrowedBooksService {
         borrowedBooks.setBorrowedAt(LocalDateTime.now());
         borrowedBooksRepository.save(borrowedBooks);
     }
+
+    public boolean isBookAvailable(Long bookId) {
+        return borrowedBooksRepository.findByBookIdAndReturnedFalse(bookId).isEmpty();
+    }
 }

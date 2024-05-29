@@ -1,14 +1,18 @@
 package com.example.demo.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class BookDto {
     private Long id;
     @NotNull
+    @NotBlank(message = "isbnNumber is required")
     private String isbnNumber;
     @NotNull
+    @NotBlank(message = "title is required")
     private String title;
     @NotNull
+    @NotBlank(message = "author is required")
     private String author;
 
     public BookDto() {}

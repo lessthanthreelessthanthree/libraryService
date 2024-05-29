@@ -86,3 +86,32 @@
 > ```
 
 </details>
+
+#### Borrow a book with a particular book id.
+
+<details>
+ <summary><code>POST</code> <code><b>/api/borrowers/register</b></code> <code>(allows users to borrow a book from the system)</code></summary>
+
+##### Parameters
+
+> | borrowerId      |  bookId     |
+> |-----------|-----------|
+> | required      |  required |
+
+
+##### Responses
+
+> | http code     | content-type                      | response                                                            |
+> |---------------|-----------------------------------|---------------------------------------------------------------------|
+> | `200`         | `application/json`        | `Book borrowed successfully`                                |
+> | `404`         | `application/json`         | `Book not found`                                                                  |
+> | `404`         | `application/json`         | `Borrower not found`                                                                  |
+> | `400`         | `application/json`         | `Book has not been returned. Book is not available`                                                                  |
+
+##### Example cURL
+
+> ```javascript
+>  curl -X POST http://localhost:8080/api/borrowers/2/borrow/2
+> ```
+
+</details>

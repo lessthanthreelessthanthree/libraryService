@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +39,10 @@ public class BookService {
                 }
             }
         }
+    }
+
+    public Optional<Book> getBookById(Long id) {
+        return bookRepository.findById(id);
     }
 
     private BookDto convertToDTO(Book book) {

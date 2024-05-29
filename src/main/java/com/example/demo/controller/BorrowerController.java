@@ -1,7 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.BorrowerDto;
+import com.example.demo.model.Book;
+import com.example.demo.model.BorrowedBooks;
 import com.example.demo.model.Borrower;
+import com.example.demo.service.BookService;
+import com.example.demo.service.BorrowedBooksService;
 import com.example.demo.service.BorrowerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +19,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/borrowers")
 public class BorrowerController {
 
     private final BorrowerService borrowerService;
+    private final BookService bookService;
+    private final BorrowedBooksService borrowedBooksService;
 
     @Autowired
-    public BorrowerController(BorrowerService borrowerService) {
+    public BorrowerController(BorrowerService borrowerService, BookService bookService, BorrowedBooksService borrowedBooksService) {
         this.borrowerService = borrowerService;
+        this.bookService = bookService;
+        this.borrowedBooksService = borrowedBooksService;
     }
 
     @GetMapping
@@ -56,5 +65,30 @@ public class BorrowerController {
             errors.put(error.getField(), error.getDefaultMessage());
         }
         return errors;
+    }
+
+    @PostMapping("/{borrowerId}/borrow/{bookId}")
+    public ResponseEntity<String> borrowBook(@PathVariable Long borrowerId, @PathVariable Long bookId) {
+        Optional<Borrower> borrowerOptional = borrowerService.getBorrowerById(borrowerId);
+        Optional<Book> bookOptional = bookService.getBookById(bookId);
+
+        if (borrowerOptional.isEmpty()) {
+            return new ResponseEntity<>("Borrower not found", HttpStatus.NOT_FOUND);
+        }
+
+        if (bookOptional.isEmpty()) {
+            return new ResponseEntity<>("Book not found", HttpStatus.NOT_FOUND);
+        }
+
+        Borrower borrower = borrowerOptional.get();
+        Book book = bookOptional.get();
+
+        BorrowedBooks borrowedBooks = new BorrowedBooks();
+        borrowedBooks.setBorrower(borrower);
+        borrowedBooks.setBook(book);
+
+        borrowedBooksService.borrowBook(borrowedBooks);
+
+        return new ResponseEntity<>("Book borrowed successfully", HttpStatus.OK);
     }
 }

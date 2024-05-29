@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class BorrowerService {
 
-    private BorrowerRepository borrowerRepository;
+    private final BorrowerRepository borrowerRepository;
 
     @Autowired
     public BorrowerService(BorrowerRepository borrowerRepository) {
@@ -31,6 +32,10 @@ public class BorrowerService {
 
     public boolean isEmailRegistered(String email) {
         return borrowerRepository.existsByEmail(email);
+    }
+
+    public Optional<Borrower> getBorrowerById(Long id) {
+        return borrowerRepository.findById(id);
     }
 
     private BorrowerDto convertToDTO(Borrower borrower) {

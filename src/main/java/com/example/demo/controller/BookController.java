@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.BookDto;
 import com.example.demo.model.Book;
 import com.example.demo.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class BookController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerNewBook(@RequestBody BookDto newBookDto) {
+    public ResponseEntity<String> registerNewBook(@RequestBody @Valid BookDto newBookDto) {
         try {
             Book book = new Book(newBookDto.getIsbnNumber(), newBookDto.getTitle(), newBookDto.getAuthor());
             bookService.registerNewBook(book);

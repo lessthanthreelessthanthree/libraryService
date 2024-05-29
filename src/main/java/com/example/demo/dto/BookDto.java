@@ -1,9 +1,14 @@
 package com.example.demo.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class BookDto {
     private Long id;
+    @NotNull
     private String isbnNumber;
+    @NotNull
     private String title;
+    @NotNull
     private String author;
 
     public BookDto() {}

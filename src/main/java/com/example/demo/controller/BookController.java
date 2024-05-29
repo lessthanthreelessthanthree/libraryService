@@ -32,9 +32,13 @@ public class BookController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerNewBook(@RequestBody BookDto newBookDto) {
-        Book book = new Book(newBookDto.getIsbnNumber(), newBookDto.getTitle(), newBookDto.getAuthor());
-        bookService.registerNewBook(book);
-        return new ResponseEntity<>("Book registered successfully", HttpStatus.CREATED);
+        try {
+            Book book = new Book(newBookDto.getIsbnNumber(), newBookDto.getTitle(), newBookDto.getAuthor());
+            bookService.registerNewBook(book);
+            return new ResponseEntity<>("Book registered successfully", HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

@@ -26,10 +26,25 @@ public class BookService {
     }
 
     public void registerNewBook(Book book) {
-        bookRepository.save(book);
+        List<Book> bookList = bookRepository.findAll();
+        if (!bookList.isEmpty()) {
+            for (Book currentBook : bookList) {
+                if (currentBook.getIsbnNumber().equals(book.getIsbnNumber())) {
+                    if (isValidAuthorAndTitle(currentBook, book)) {
+                        bookRepository.save(book);
+                    } else {
+                        throw new RuntimeException("The author and/or title is not valid for this existing ISBN");
+                    }
+                }
+            }
+        }
     }
 
     private BookDto convertToDTO(Book book) {
         return new BookDto(book.getId(), book.getIsbnNumber(), book.getTitle(), book.getAuthor());
+    }
+
+    private boolean isValidAuthorAndTitle (Book bookInDatabase, Book newBook) {
+        return bookInDatabase.getAuthor().equals(newBook.getAuthor()) && bookInDatabase.getTitle().equals(newBook.getTitle());
     }
 }

@@ -25,6 +25,14 @@ public class BorrowerService {
                 .collect(Collectors.toList());
     }
 
+    public void registerNewBorrower(Borrower borrower) {
+        borrowerRepository.save(borrower);
+    }
+
+    public boolean isEmailRegistered(String email) {
+        return borrowerRepository.existsByEmail(email);
+    }
+
     private BorrowerDto convertToDTO(Borrower borrower) {
         return new BorrowerDto(borrower.getId(), borrower.getName(), borrower.getEmail());
     }

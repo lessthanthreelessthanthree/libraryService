@@ -25,6 +25,10 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public void registerNewBook(Book book) {
+        bookRepository.save(book);
+    }
+
     private BookDto convertToDTO(Book book) {
         return new BookDto(book.getId(), book.getIsbnNumber(), book.getTitle(), book.getAuthor());
     }

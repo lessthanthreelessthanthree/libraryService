@@ -81,7 +81,7 @@ public class BorrowerController {
         }
 
         if (!borrowedBooksService.isBookAvailable(bookId)) {
-            return new ResponseEntity<>("Book has not been returned. Book is not available", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Book has not been returned. Book is not available", HttpStatus.BAD_REQUEST);
         }
 
         Borrower borrower = borrowerOptional.get();

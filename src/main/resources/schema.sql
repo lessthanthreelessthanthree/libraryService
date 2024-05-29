@@ -11,7 +11,7 @@ CREATE TABLE book (
     author VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE borrowed_book (
+CREATE TABLE borrowed_books (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     borrower_id BIGINT NOT NULL,
     book_id BIGINT NOT NULL,

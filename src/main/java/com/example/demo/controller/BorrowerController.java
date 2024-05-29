@@ -95,4 +95,14 @@ public class BorrowerController {
 
         return new ResponseEntity<>("Book borrowed successfully", HttpStatus.OK);
     }
+
+    @PostMapping("/{borrowerId}/return/{bookId}")
+    public ResponseEntity<BorrowedBooks> returnBook(@PathVariable Long borrowerId, @PathVariable Long bookId) {
+        try {
+            BorrowedBooks returnedBook = borrowedBooksService.returnBook(borrowerId, bookId);
+            return ResponseEntity.ok(returnedBook);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
 }
